@@ -1,0 +1,86 @@
+@media (orientation: portrait) {
+    .arrow-section {
+        background-size: clamp(500px, 100%, 1894px);
+
+        a {
+            display: none;
+
+            img {
+                display: none;
+            }
+        }
+    }
+
+    #about {
+        article {
+            main {
+                margin: 0 10vw !important;
+
+                p {
+                    width: auto !important;
+                }
+            }
+
+            img {
+                display: none;
+            }
+        }
+    }
+
+    .modal {
+        h3 {
+            top: 0;
+        }
+
+        button {
+            top: 0;
+        }
+    }
+
+    
+}
+
+@media (orientation: landscape) {
+    .modal {
+        h3 {
+            top: 5vh;
+            width: 55vw;
+            height: clamp(3em, 10vh, 10vh);
+            line-height: clamp(3em, 10vh, 10vh);
+            z-index: -2;
+        }
+
+        .img-main {
+            width: 30vw;
+            height: auto !important;
+            top: calc(
+                5vh + 0.5 *
+                    clamp(calc(3 * clamp(0.8rem, 0.8vw, 0.8vw)), 10vh, 10vh)
+            );
+        }
+
+        .img-aside {
+            bottom: 0;
+            right: 5vw;
+            width: 13vw;
+            max-height: 80vh;
+        }
+
+        article {
+            position: absolute;
+            top: calc(
+                clamp(calc(3 * clamp(0.8rem, 0.8vw, 0.8vw)), 10vh, 10vh) + 10vh
+            );
+            left: 43vw;
+            width: 34vw;
+
+            header {
+                margin-bottom: 1em;
+            }
+        }
+
+        button {
+            top: 5vh;
+        }
+    }
+}
