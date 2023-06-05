@@ -10,19 +10,21 @@ let actions = [];
 let buttons = document.querySelectorAll("button");
 
 buttons.forEach((button) => {
-    if (!tg.MainButton.isVisible) tg.MainButton.show()
-    button.addEventListener("click", () => {
-        if (button.classList.contains("active")) {
-            button.classList.remove("active");
-        } else {
-            button.classList.add("active");
-        }
-        actions.push(button.innerHTML);
-    });
+    if (tg.MainButton.isVisible) tg.MainButton.hide();
+    else {
+        button.addEventListener("click", () => {
+            if (button.classList.contains("active")) {
+                button.classList.remove("active");
+            } else {
+                button.classList.add("active");
+            }
+            actions.push(button.innerHTML);
+        });
+    }
 });
 
-Telegram.WebApp.onEvent('mainButtonClicked', () => {
+Telegram.WebApp.onEvent("mainButtonClicked", () => {
     for (const action of actions) {
-        tg.sendData(action)
+        tg.sendData(action);
     }
-})
+});
