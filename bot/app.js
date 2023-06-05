@@ -10,6 +10,7 @@ let actions = [];
 let buttons = document.querySelectorAll("button");
 
 buttons.forEach((button) => {
+    if (!tg.MainButton.isVisible) tg.MainButton.show()
     button.addEventListener("click", () => {
         if (button.classList.contains("active")) {
             button.classList.remove("active");

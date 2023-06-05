@@ -1,16 +1,44 @@
-import logging
-from telegram import Update, WebApp
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+import asyncio
+from aiogram import Bot, Dispatcher, executor
+from aiogram.types import WebAppInfo
+from aiogram.types.reply_keyboard import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.dispatcher.filters.builtin import Command
 
-async def kotenochek(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    ...
+from config import TOKEN
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
+
+loop = asyncio.new_event_loop()
+bot = Bot(TOKEN, parse_mode='HTML')
+dp = Dispatcher(bot, loop)
+
+web_app = WebAppInfo(url='https://luaneo.github.io/bot/index.html')
+
+keyboard = ReplyKeyboardMarkup(
+    keyboard=[[KeyboardButton(text='Site', web_app=web_app)]],
+    resize_keyboard=True
 )
 
-userdata = {}
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update, text='Используй кнопку внизу, чтобы анонимно отправить сообщение Грише')
+if __name__ == '__main__':
+    @dp.message_handler(Command('start'))
+    async def start(message):
+        await bot.send_message(
+            message.chat.id,
+            'Отправь анонимное послание Грише!',
+            reply_markup=keyboard
+        )
+
+    grisha_id = ''
+
+    @dp.message_handler(content_types='web_app_data')
+    async def sendToGrigory(message):
+        match message.web_app_data.data:
+            case 'Заспамить':
+                for i in range(4):
+                    await bot.send_message(message.chat.id, 'Тебя спамят!')
+            case 'Поцеловать':
+                await bot.send_message(message.chat.id, 'Тебя поцеловали 🤭')
+            case 'Назвать котеночком':
+                await bot.send_message(message.chat.id, 'Ты такой котеночек 💗')
+
+    executor.start_polling(dp)
