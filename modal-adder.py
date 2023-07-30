@@ -1,3 +1,5 @@
+# DEPRECATED!!!
+
 author = input('Имя автора: ')
 mural_name = input('Назвыние мурала: ')
 address = input('Адрес (без "ул."): ')
