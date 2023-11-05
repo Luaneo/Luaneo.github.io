@@ -1,0 +1,13 @@
+.board-row {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 3px;
+  justify-content: center;
+}
+
+.board-cell {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #555;
+  cursor: pointer;
+}
